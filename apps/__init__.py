@@ -28,7 +28,7 @@ def create_app(config=None):
     login_manager.session_protection = "strong"
     login_manager.init_app(app)
 
-    from apps.test1.view import init_api
+    from apps.Portal.entrance import init_api
     init_api(app)
 
     return app
