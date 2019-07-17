@@ -3,8 +3,8 @@ import jwt
 import datetime, time
 from flask import jsonify
 
-from apps.common import falseReturn, trueReturn
-from apps.model1 import User
+from apps.Utils.common import falseReturn, trueReturn
+from apps.Auth.model1 import User
 import config
 
 

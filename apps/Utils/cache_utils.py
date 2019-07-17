@@ -1,6 +1,6 @@
 from werkzeug.contrib.cache import SimpleCache
 
-from apps.model1 import User
+from apps.Auth.model1 import User
 
 cache = SimpleCache()
 def getUserById(userId):

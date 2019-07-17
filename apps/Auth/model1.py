@@ -21,6 +21,13 @@ class User(UserMixin,db.Model):
         self.password = password
         self.email = email
 
+    #记录变为dict，才能进行json.dumps处理，返回给接口
+    def columns_to_dict(self):
+        dict_ = {}
+        for key in self.__mapper__.c.keys():
+            dict_[key] = getattr(self, key)
+        return dict_
+
     def get_id(self):
         return self.session_token
 

@@ -2,7 +2,8 @@ import jwt
 import datetime
 import hashlib
 
-SECRECT_KEY = 'secret'
+import config
+
 
 def md5Encoding(youstr):
     m=hashlib.md5()
@@ -20,7 +21,7 @@ def  jwtEncoding(some,aud='webkit'):
         'aud': aud,
         'some': some
     }
-    encoded2 = jwt.encode(option, SECRECT_KEY, algorithm='HS256')
+    encoded2 = jwt.encode(option, config.SECRECT_KEY, algorithm='HS256')
     return encoded2
 
 
@@ -38,7 +39,7 @@ def  jwtEncoding(some,aud='webkit'):
 def  jwtDecoding(token,aud='webkit'):
     decoded = None
     try:
-        decoded = jwt.decode(token, SECRECT_KEY, audience=aud, algorithms=['HS256'])
+        decoded = jwt.decode(token, config.SECRECT_KEY, audience=aud, algorithms=['HS256'])
     except jwt.ExpiredSignatureError :
         print("erroing.................")
         decoded = {"error_msg":"is timeout !!","some":None}
