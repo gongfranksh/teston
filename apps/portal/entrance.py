@@ -3,7 +3,8 @@ from flask import jsonify, request
 from sqlalchemy import desc
 
 from apps.Auth.auths import Auth
-from apps.Auth.model1 import User
+from apps.Auth.Users import User
+from apps.Entity.Branch import Branch
 from apps.Utils.common import trueReturn, falseReturn
 from apps.Utils.cache_utils import getUserById
 
@@ -101,9 +102,21 @@ def init_api(app):
         logout_user()
         return jsonify(trueReturn("{'ok':True}", API_SUCCESS_MSG))
 
+
+    @app.route("/branch",methods=['GET', 'POST'])
+    @login_required
+    def get_branch_result():
+            branchcode='01001'
+            branch = Branch(branchcode)
+            rst = branch.get_branch_all()
+            return jsonify(trueReturn(rst, API_SUCCESS_MSG))
+
+
+
+
     #测试取得用户数据
-    # @app.route('/cun', methods=['GET', 'POST'] )
-    # @login_required
-    # def getUser2():
-    #     user = utils._get_user()
-    #     return jsonify(trueReturn(user.columns_to_dict(), API_SUCCESS_MSG))
+    @app.route('/cun', methods=['GET', 'POST'] )
+    @login_required
+    def getUser2():
+        user = utils._get_user()
+        return jsonify(trueReturn(user.columns_to_dict(), API_SUCCESS_MSG))
