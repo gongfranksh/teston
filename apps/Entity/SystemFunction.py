@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 
-from Entity.Utils import MsSqlResultDataEncoder
-from Entity.jsEntity import JsEntity
+from apps.Entity.Utils import MsSqlResultDataEncoder
+from apps.Entity.jsEntity import JsEntity
 
 
 class SystemFunction(JsEntity):

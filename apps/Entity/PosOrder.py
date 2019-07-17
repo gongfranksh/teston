@@ -3,7 +3,7 @@ import json
 import time
 import uuid
 
-from Entity.jsEntity import JsEntity
+from apps.Entity.jsEntity import JsEntity
 
 
 class PosOrder(JsEntity):
