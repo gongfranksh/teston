@@ -4,7 +4,7 @@ import datetime, time
 from flask import jsonify
 
 from apps.Utils.common import falseReturn, trueReturn
-from apps.Auth.model1 import User
+from apps.Auth.Users import User
 import config
 
 

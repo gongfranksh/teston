@@ -22,13 +22,13 @@ def create_app(config=None):
                 ##response.headers['Authorization'] = 'xiaominggessdfs3432ds34ds32432cedsad332e23'
         return response
 
-    from apps.Auth.model1 import db
+    from apps.Auth.Users import db
     db.init_app(app)
 
     login_manager.session_protection = "strong"
     login_manager.init_app(app)
 
-    from apps.Portal.entrance import init_api
+    from apps.Portal.Entrance import init_api
     init_api(app)
 
     return app
