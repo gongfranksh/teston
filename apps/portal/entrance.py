@@ -5,6 +5,8 @@ from sqlalchemy import desc
 from apps.Auth.auths import Auth
 from apps.Auth.Users import User
 from apps.Entity.Branch import Branch
+from apps.Entity.Member import Member
+from apps.Entity.ProductBarCode import ProductBarCode
 from apps.Utils.common import trueReturn, falseReturn
 from apps.Utils.cache_utils import getUserById
 
@@ -111,7 +113,22 @@ def init_api(app):
             rst = branch.get_branch_all()
             return jsonify(trueReturn(rst, API_SUCCESS_MSG))
 
+    @app.route("/product/<branchcode>/<barcode>", methods=['GET', 'POST'])
+    @login_required
+    def get_product_by_barcode(branchcode, barcode):
+        productbarcode = ProductBarCode(branchcode)
+        rst = productbarcode.seek_branch_product_barcode(barcode)
+        # barcode查询步到，使用prodid查询
+        if len(rst) == 2:
+            rst = productbarcode.seek_branch_product_proid(barcode)
+        return jsonify(trueReturn(rst, API_SUCCESS_MSG))
 
+    @app.route("/member/<mobile>", methods=['GET', 'POST'])
+    @login_required
+    def Get_memeber_by_mobile(mobile):
+        member = Member()
+        rst = member.seek_memeber_by_mobile(mobile)
+        return jsonify(trueReturn(rst, API_SUCCESS_MSG))
 
 
     #测试取得用户数据
