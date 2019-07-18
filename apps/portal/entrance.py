@@ -100,6 +100,7 @@ def init_api(app):
             "description": e.description,
         })
 
+
         logging.error(rst)
         return jsonify(falseReturn(rst,API_FAILURE_MSG))
 
