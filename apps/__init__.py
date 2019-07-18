@@ -2,11 +2,14 @@ from flask import Flask, request
 
 from flask_login import LoginManager
 
+from apps.Js.JsApi.JsApi import jsapi
+
 login_manager = LoginManager()
 
 
 def create_app(config=None):
     app = Flask(__name__)
+
     #app.config.from_object(config)
     if config is not None:
         app.config.from_pyfile(config)
@@ -30,5 +33,8 @@ def create_app(config=None):
 
     from apps.Portal.Entrance import init_api
     init_api(app)
+
+    #注册增加模块
+    app.register_blueprint(jsapi)
 
     return app
