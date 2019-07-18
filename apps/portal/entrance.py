@@ -1,4 +1,6 @@
 import json
+import logging
+
 from flask import jsonify, request
 from sqlalchemy import desc
 
@@ -97,6 +99,8 @@ def init_api(app):
             "name": e.name,
             "description": e.description,
         })
+
+        logging.error(rst)
         return jsonify(falseReturn(rst,API_FAILURE_MSG))
 
     # @app.route('/des', methods=['POST'])

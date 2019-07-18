@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import os
 from datetime import datetime
 import json
 
@@ -65,6 +66,14 @@ def complexObj2json(obj):
     # 用户自定义的类
     else:
         return obj2dict(obj)
+
+
+#log配置，实现日志自动按日期生成日志文件
+def make_dir(make_dir_path):
+    path = make_dir_path.strip()
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
 
 
 """

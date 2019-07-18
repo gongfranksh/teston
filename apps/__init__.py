@@ -9,6 +9,7 @@ from flask import Flask, request
 from flask_login import LoginManager
 
 from apps.Js.JsApi.JsApi import jsapi
+from apps.Utils.common import make_dir
 from config import LOG_LEVEL
 
 login_manager = LoginManager()
@@ -49,33 +50,20 @@ def create_app(config=None):
 
 def setup_log(config=None):
     """配置日志"""
-
-    # 设置日志的记录等级
-    # logging..basicConfig(level=logging.DEBUG)  # 调试debug级
     # 创建日志记录器，指明日志保存的路径、每个日志文件的最大大小、保存的日志文件个数上限
     log_dir_name = "logs"
-
     log_file_name = 'logger-' + time.strftime('%Y-%m-%d', time.localtime(time.time())) + '.log'
-
     log_file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)) \
                       + os.sep \
                       + log_dir_name
-
     make_dir(log_file_folder)
 
     log_file_str = log_file_folder + os.sep + log_file_name
-    # log_level = logging.DEBUG
-    # handler = logging.FileHandler(log_file_str, encoding='UTF-8')
-    # handler.setLevel(log_level)
-    # logging_format = logging.Formatter(
-    #     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
-    # handler.setFormatter(logging_format)
-    # logging.getLogger().logger.addHandler(handler)
     logging.basicConfig(level=LOG_LEVEL)
     file_log_handler = RotatingFileHandler(log_file_str, maxBytes=1024 * 1024 * 100, backupCount=10)
     print(log_file_str)
     # 创建日志记录的格式 日志等级 输入日志信息的文件名 行数 日志信息
-    formatter = logging.Formatter('%(levelname)s %(filename)s:%(lineno)d %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s -%(pathname)s- %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     # # 为刚创建的日志记录器设置日志记录格式
     file_log_handler.setFormatter(formatter)
     # # 为全局的日志工具对象（flask app使用的）添加日志记录器
@@ -83,9 +71,3 @@ def setup_log(config=None):
 
 
 
-#log配置，实现日志自动按日期生成日志文件
-def make_dir(make_dir_path):
-    path = make_dir_path.strip()
-    if not os.path.exists(path):
-        os.makedirs(path)
-    return path
